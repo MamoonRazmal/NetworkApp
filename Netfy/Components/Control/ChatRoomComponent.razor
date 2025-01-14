@@ -1,0 +1,27 @@
+@if (groupName is not null )
+{
+    <div class="card" style="width: 18rem;">
+        <img src=@($"/images/{groupName.groupname}.jpg") class="card-img-top" />
+        <div class="card-body">
+            <h5 class="card-title">@groupName.groupname</h5>
+            <p class="card-text">@groupName.groupdescription</p>
+            <a href="/mainchatroom/@groupName.groupId" class="btn btn-primary">Enter</a>
+        </div>
+    </div>
+}
+else
+{
+    <p>Group name is not provided.</p>
+}
+
+@code
+{
+    //@($"/images/{groupName}.jpg" class="card-img-top"  style="width: 18rem;"
+    [Parameter]
+    public ChatGroupObject? groupName { get; set; }
+
+    public void gotoPage()
+    {
+        
+    }
+}

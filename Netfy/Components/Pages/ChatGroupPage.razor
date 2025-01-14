@@ -1,0 +1,41 @@
+@page "/mainchatroom/{id:int}"
+@if (mygroup is not null)
+{
+        
+            <div class="row bg-info">
+     <p>WelCome To</p>
+    <h3>@mygroup.groupname</h3>
+
+    <span>Group Description</span>
+      <h4>@mygroup.groupdescription</h4>
+      </div>
+      <div class="row bg-light">
+        <button type="button" @onclick="getStartChatId">Start Chat</button>
+      </div>
+    @if(startchat ==true)
+    {
+        <ChatUI ></ChatUI>
+    }
+
+
+   
+
+}
+
+
+@code {
+    public bool startchat{get;set;}
+    [Parameter]
+    public int id { get; set; }
+    ChatGroupObject? mygroup;
+    protected override void OnParametersSet()
+    {
+        mygroup = GroupRepo.getGroupInfoById(id);
+    }
+public void getStartChatId()
+{
+  startchat=true;  
+}
+
+
+}

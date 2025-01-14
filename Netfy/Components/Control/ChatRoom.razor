@@ -1,0 +1,15 @@
+<ul class="list-unstyled">
+@foreach(var groupname in getGroupData )
+{
+  <li><ChatRoomComponent  groupName="@groupname"></ChatRoomComponent></li>  
+}
+</ul>
+
+@code{
+
+   // public List<string> getList =ChatGroup.GetGroupName(); 
+        public List<ChatGroupObject> getGroupData=GroupRepo.getgroupinfo();
+        public List<string>groupPic =ChatGroup.GetGroupPhoto();
+}    
+
+
