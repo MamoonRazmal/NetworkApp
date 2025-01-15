@@ -36,6 +36,10 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xDb250cm9sXENoYXRVSS5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
+[c:/Users/r.razmal/source/repos/NetworkApp/Netfy/Components/Control/Login.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xDb250cm9sXExvZ2luLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
 [c:/Users/r.razmal/source/repos/NetworkApp/Netfy/Components/Pages/ChatGroupPage.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xDaGF0R3JvdXBQYWdlLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
@@ -52,8 +56,8 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xIb21lLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
-[c:/Users/r.razmal/source/repos/NetworkApp/Netfy/Components/Pages/MainChatRoom.razor]
-build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xNYWluQ2hhdFJvb20ucmF6b3I=
+[c:/Users/r.razmal/source/repos/NetworkApp/Netfy/Components/Pages/Mainchat.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xNYWluY2hhdC5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
 [c:/Users/r.razmal/source/repos/NetworkApp/Netfy/Components/Pages/Weather.razor]

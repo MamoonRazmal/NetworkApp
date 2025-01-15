@@ -16,6 +16,14 @@
 <body>
     <Routes />
     <script src="_framework/blazor.web.js"></script>
+    <script>
+    function scrollToBottom(elementId) {
+        var chatMessagesDiv = document.getElementById(elementId);
+        if (chatMessagesDiv) {
+            chatMessagesDiv.scrollTop = chatMessagesDiv.scrollHeight;
+        }
+    }
+</script>
 </body>
 
 </html>

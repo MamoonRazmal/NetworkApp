@@ -1,4 +1,11 @@
 @rendermode InteractiveServer
-<InputTextArea ></InputTextArea>
-<InputText type="text"/>
+<InputTextArea @bind-Value=Username></InputTextArea>
+<InputText type="password" @bind-Value=password/>
 <input type="button"/>
+@code
+{
+private string Username{get;set;}
+private string password{get;set;}
+public List<User> RegisterdUsers =UserList.getRegistedUsers;
+
+}

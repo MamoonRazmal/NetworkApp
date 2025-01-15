@@ -1,10 +1,13 @@
 using Netfy.Components;
+using Netfy.StateStore;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
+builder.Services.AddTransient<SessionStorage>();
+builder.Services.AddSignalR();
 
 var app = builder.Build();
 
@@ -18,7 +21,7 @@ if (!app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-
+app.MapHub<ChatHub>("/chathub");
 app.UseAntiforgery();
 
 app.MapStaticAssets();

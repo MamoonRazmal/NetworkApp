@@ -5,7 +5,15 @@
         <div class="card-body">
             <h5 class="card-title">@groupName.groupname</h5>
             <p class="card-text">@groupName.groupdescription</p>
-            <a href="/mainchatroom/@groupName.groupId" class="btn btn-primary">Enter</a>
+            @if(getConfirmationFromParent is  null)
+            {
+                     <span   class="btn btn-primary" disabled-link>Please Log IN</span>
+            }
+            else
+            {
+                  <a href="/mainchatroom/@groupName.groupId" class="btn btn-primary">Enter</a>
+            }
+          
         </div>
     </div>
 }
@@ -16,6 +24,8 @@ else
 
 @code
 {
+    [Parameter]
+public User getConfirmationFromParent{get;set;}
     //@($"/images/{groupName}.jpg" class="card-img-top"  style="width: 18rem;"
     [Parameter]
     public ChatGroupObject? groupName { get; set; }

@@ -1,12 +1,16 @@
+<div class="container-fluid">
+<div class="col-10">
 <ul class="list-unstyled">
 @foreach(var groupname in getGroupData )
 {
-  <li><ChatRoomComponent  groupName="@groupname"></ChatRoomComponent></li>  
+  <li><ChatRoomComponent getConfirmationFromParent=getConfirmationFromParent  groupName="@groupname"></ChatRoomComponent></li>  
 }
 </ul>
-
+</div>
+</div>
 @code{
-
+[Parameter]
+public User getConfirmationFromParent{get;set;}
    // public List<string> getList =ChatGroup.GetGroupName(); 
         public List<ChatGroupObject> getGroupData=GroupRepo.getgroupinfo();
         public List<string>groupPic =ChatGroup.GetGroupPhoto();

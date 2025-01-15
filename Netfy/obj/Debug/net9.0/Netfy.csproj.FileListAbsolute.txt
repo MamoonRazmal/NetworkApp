@@ -77,3 +77,12 @@ c:\Users\r.razmal\source\repos\NetworkApp\Netfy\obj\Debug\net9.0\refint\Netfy.dl
 c:\Users\r.razmal\source\repos\NetworkApp\Netfy\obj\Debug\net9.0\Netfy.pdb
 c:\Users\r.razmal\source\repos\NetworkApp\Netfy\obj\Debug\net9.0\Netfy.genruntimeconfig.cache
 c:\Users\r.razmal\source\repos\NetworkApp\Netfy\obj\Debug\net9.0\ref\Netfy.dll
+c:\Users\r.razmal\source\repos\NetworkApp\Netfy\obj\Debug\net9.0\Netfy.sourcelink.json
+c:\Users\r.razmal\source\repos\NetworkApp\Netfy\obj\Debug\net9.0\Netfy.csproj.AssemblyReference.cache
+C:\Users\r.razmal\source\repos\NetworkApp\Netfy\bin\Debug\net9.0\Microsoft.AspNetCore.Http.Connections.Client.dll
+C:\Users\r.razmal\source\repos\NetworkApp\Netfy\bin\Debug\net9.0\Microsoft.AspNetCore.SignalR.Client.dll
+C:\Users\r.razmal\source\repos\NetworkApp\Netfy\bin\Debug\net9.0\Microsoft.AspNetCore.SignalR.Client.Core.dll
+C:\Users\r.razmal\source\repos\NetworkApp\Netfy\bin\Debug\net9.0\Newtonsoft.Json.dll
+C:\Users\r.razmal\source\repos\NetworkApp\Netfy\bin\Debug\net9.0\System.Net.ServerSentEvents.dll
+C:\Users\r.razmal\source\repos\NetworkApp\Netfy\bin\Debug\net9.0\System.Net.WebSockets.WebSocketProtocol.dll
+C:\Users\r.razmal\source\repos\NetworkApp\Netfy\obj\Debug\net9.0\Netfy.csproj.Up2Date

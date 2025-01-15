@@ -1,0 +1,32 @@
+@page "/mainchatroom"
+@rendermode InteractiveServer
+@using Netfy.Components.Control
+<p>This is the chatRoom</p>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-2">
+            <ChatRoom getConfirmationFromParent=IsLogInConfirm></ChatRoom>
+        </div>
+        <div class="col-1">
+            <Login  sendConfirmation="handleApprovelFromChild" ></Login>
+        </div>
+    </div>
+</div>
+@if(IsLogInConfirm is not null)
+{
+    @IsLogInConfirm.username
+}
+
+@code
+{
+    
+public User? IsLogInConfirm{get;set;}
+public void handleApprovelFromChild(User confirm)
+{
+    if(confirm is not null)
+    {
+        IsLogInConfirm =confirm;
+    }
+
+}
+}

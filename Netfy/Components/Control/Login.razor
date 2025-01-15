@@ -1,0 +1,59 @@
+@rendermode InteractiveServer
+@inject SessionStorage SessionStorage
+<div class="container">
+    <div class="col">
+        <input type="text" @bind-value=Username />
+        <input type="password" @bind-value=password />
+        <button class="btn btn-primary" @onclick="@(()=>handleApprovelFromChild())">Login</button>
+
+    </div>
+</div>
+@code
+{
+    private string? Username { get; set; }
+    private string? password { get; set; }
+    public List<User> RegisterdUsers = UserList.getRegistedUsers;
+    public User Approved { get; set; }
+    [Parameter]
+    public EventCallback<User> sendConfirmation { get; set; }
+
+    private void handleApprovelFromChild()
+    {
+        Approved = checkSecurityParameter(Username, password);
+        SaveDataInCache(Approved);
+
+        sendConfirmation.InvokeAsync(Approved);
+    }
+
+    private User checkSecurityParameter(string username, string pass)
+    {
+
+        if (UserList.checkUsername(username) && UserList.checkPassword(pass))
+        {
+           
+            var user = RegisterdUsers.FirstOrDefault(q => q.username == username);
+            if (user is not null)
+            {
+                return new User
+                    {
+                        UserId = user.UserId,
+                        password = user.password,
+                        username = user.username
+                    };
+            }
+        }
+
+       
+          return null;
+       
+
+
+
+    }
+    public async Task  SaveDataInCache(User user)
+    {
+        await SessionStorage.SetUserInfor(user);
+    }
+
+
+}

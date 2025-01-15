@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Netfy")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+7c9931a381aee2e4520ac93365f3d84713b1f935")]
 [assembly: System.Reflection.AssemblyProductAttribute("Netfy")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Netfy")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

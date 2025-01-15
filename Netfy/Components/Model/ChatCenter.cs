@@ -7,8 +7,7 @@ namespace Netfy.Components.Model
 
         public static void AddChat(Chat chat)
         {
-            var MaxID = ChatList.Max(x=>x.chatID);
-            chat.chatID=MaxID+1;
+          
             ChatList.Add(chat);
         }
 

@@ -1,41 +1,138 @@
 @page "/mainchatroom/{id:int}"
+@inject IJSRuntime JSRuntime
+@rendermode InteractiveServer
+@inject SessionStorage SessionStorage
+@inject IJSRuntime JS
+@inject NavigationManager Navigation
+@using Microsoft.AspNetCore.SignalR.Client;
+
 @if (mygroup is not null)
 {
-        
-            <div class="row bg-info">
-     <p>WelCome To</p>
-    <h3>@mygroup.groupname</h3>
+    <!-- Group Information -->
 
-    <span>Group Description</span>
-      <h4>@mygroup.groupdescription</h4>
-      </div>
-      <div class="row bg-light">
-        <button type="button" @onclick="getStartChatId">Start Chat</button>
-      </div>
-    @if(startchat ==true)
+    <div class="row bg-info">
+        <p>Welcome</p>
+
+        <h3>@mygroup.groupname</h3>
+        <span>Group Description</span>
+        <h3>@mygroup.groupdescription</h3>
+    </div>
+
+    <div class="row bg-light">
+        <button type="button" class="btn btn-primary" @onclick="getInfoFromCashe">Start Chat</button>
+    </div>
+
+    @if (startchat == true)
     {
-        <ChatUI ></ChatUI>
+        <!-- Chat UI -->
+        <div style="display: flex; height: 80vh; border: 1px solid #ddd; margin-top: 20px;">
+            @if (getUserfromCache is not null)
+            {
+                <p>Logged-in Information User: </p> @getUserfromCache.username
+            }
+            <!-- Sidebar: Logged-in Users -->
+            <div style="width: 20%; background-color: #f4f4f4; padding: 10px; overflow-y: auto; border-right: 1px solid #ddd;">
+                <h5>Logged-in Users</h5>
+                <ul style="list-style: none; padding: 0;">
+                    @foreach (var user in loggedInUsers)
+                    {
+                        <li>@user</li>
+                    }
+
+                </ul>
+            </div>
+
+            <!-- Chat Messages Area -->
+
+            <div style="flex-grow: 1; display: flex; flex-direction: column;">
+                <!-- Chat Messages -->
+                <div style="flex-grow: 1; overflow-y: auto; padding: 10px; background-color: #fafafa; border-bottom: 1px solid #ddd;"
+                    id="chatMessages">
+                    @if (Messages is not null)
+                    {
+                        @foreach (var message in Messages)
+                        {
+                            <div><strong>@message.user:</strong>@message.Msg </div>
+                        }
+                    }
+                    else{ <div><strong><Noframes> message to show</Noframes>:</strong> </div>}
+                </div>
+
+                <!-- Message Input -->
+                <div style="padding: 10px; border-top: 1px solid #ddd; display: flex; align-items: center;">
+                    <textarea @bind="@newMessage" placeholder="Type your message..."
+                        style="flex-grow: 1; height: 40px; resize: none; margin-right: 10px;"></textarea>
+                    <button class="btn btn-success" @onclick="sendMessage">Send</button>
+                </div>
+            </div>
+
+        </div>
     }
-
-
-   
-
 }
 
 
 @code {
-    public bool startchat{get;set;}
+    public User? getUserfromCache;
+    private HubConnection? hubConnection;
+    private string? newMessage { get; set; }
+    public List<Chat> Messages { get; set; }= new();
+    protected override async Task OnInitializedAsync()
+    {
+        hubConnection = new HubConnectionBuilder().WithUrl(Navigation.ToAbsoluteUri("/chathub")).Build();
+        hubConnection.On<string, string>("ReceiveMessage", (user, message) =>
+        {
+            Messages.Add(new Chat { user = user, Msg = message });
+            StateHasChanged();
+        });
+        await hubConnection.StartAsync();
+
+    }
+
+    private async Task getInfoFromCashe()
+    {
+        this.getUserfromCache = await SessionStorage.getUserInfo();
+        startchat = true;
+    }
+
+
+
+    public bool startchat { get; set; }
     [Parameter]
     public int id { get; set; }
     ChatGroupObject? mygroup;
+
+    // Mock data for demo purposes
+    private List<string> loggedInUsers = new() { "User1", "User2", "User3" };
+    private List<(string User, string Text)> chatMessages = new();
+
+
+
     protected override void OnParametersSet()
     {
         mygroup = GroupRepo.getGroupInfoById(id);
     }
-public void getStartChatId()
-{
-  startchat=true;  
-}
+
+    public void getStartChatId()
+    {
+        getInfoFromCashe();
+        startchat = true;
+    }
+
+    private async Task sendMessage()
+    {
+        if (hubConnection is not null)
+        {
+           if (getUserfromCache is not null && !string.IsNullOrWhiteSpace(newMessage))
+                {
+                    await hubConnection.SendAsync("SendMessage", getUserfromCache.username, newMessage);
+                    newMessage = string.Empty; // Clear input after sending
+                }
+        }
+    }
 
 
+    private async Task ScrollToBottom()
+    {
+        await JSRuntime.InvokeVoidAsync("scrollToBottom", "chatMessages");
+    }
 }
