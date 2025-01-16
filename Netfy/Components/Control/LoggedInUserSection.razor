@@ -1,0 +1,36 @@
+@inject SessionStorage SessionStorage
+
+@if (getUserfromCache is not null)
+{
+    <p> User: </p> @getUserfromCache.username
+}
+<!-- Sidebar: Logged-in Users -->
+@if(UserList is not null)
+{
+    <div style="width: 20%; background-color: #f4f4f4; padding: 10px; overflow-y: auto; border-right: 1px solid #ddd;">
+    <h5>Logged-in Users</h5>
+    <ul style="list-style: none; padding: 0;">
+        @if(UserList is not null)
+        {
+            @foreach (var user in UserList)
+            {
+                <li>@user.username</li>
+            }
+        }
+        </ul>
+</div>
+}
+    
+@code
+{
+        protected override async Task OnInitializedAsync()
+        {
+
+        }
+
+        [Parameter]
+        public User? getUserfromCache{get;set;}
+        [Parameter]
+        public List<User>? UserList{get;set;}
+   
+}

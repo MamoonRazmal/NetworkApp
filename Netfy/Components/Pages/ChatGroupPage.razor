@@ -26,22 +26,8 @@
     {
         <!-- Chat UI -->
         <div style="display: flex; height: 80vh; border: 1px solid #ddd; margin-top: 20px;">
-            @if (getUserfromCache is not null)
-            {
-                <p>Logged-in Information User: </p> @getUserfromCache.username
-            }
-            <!-- Sidebar: Logged-in Users -->
-            <div style="width: 20%; background-color: #f4f4f4; padding: 10px; overflow-y: auto; border-right: 1px solid #ddd;">
-                <h5>Logged-in Users</h5>
-                <ul style="list-style: none; padding: 0;">
-                    @foreach (var user in loggedInUsers)
-                    {
-                        <li>@user</li>
-                    }
-
-                </ul>
-            </div>
-
+          
+            <LoggedInUserSection getUserfromCache="getUserfromCache" UserList="LoggedInUserList" ></LoggedInUserSection>
             <!-- Chat Messages Area -->
 
             <div style="flex-grow: 1; display: flex; flex-direction: column;">
@@ -75,6 +61,7 @@
     public User? getUserfromCache;
     private HubConnection? hubConnection;
     private string? newMessage { get; set; }
+    public List<User>? LoggedInUserList{get;set;}=new();
     public List<Chat> Messages { get; set; }= new();
     protected override async Task OnInitializedAsync()
     {
@@ -84,6 +71,13 @@
             Messages.Add(new Chat { user = user, Msg = message });
             StateHasChanged();
         });
+        hubConnection.On<List<User>>("RecievedList",userlist=>{
+         //   LoggedInUserList = UserLists;
+           LoggedInUserList=userlist;
+                  
+           
+            StateHasChanged();
+            });
         await hubConnection.StartAsync();
 
     }
@@ -91,9 +85,16 @@
     private async Task getInfoFromCashe()
     {
         this.getUserfromCache = await SessionStorage.getUserInfo();
+      if (getUserfromCache != null && hubConnection is not null)
+    {
+        await hubConnection.SendAsync("AddUser", getUserfromCache);
+      //  sendUserList();
+        
+      
         startchat = true;
+         StateHasChanged();
     }
-
+}
 
 
     public bool startchat { get; set; }
@@ -102,7 +103,7 @@
     ChatGroupObject? mygroup;
 
     // Mock data for demo purposes
-    private List<string> loggedInUsers = new() { "User1", "User2", "User3" };
+  
     private List<(string User, string Text)> chatMessages = new();
 
 
@@ -127,6 +128,17 @@
                     await hubConnection.SendAsync("SendMessage", getUserfromCache.username, newMessage);
                     newMessage = string.Empty; // Clear input after sending
                 }
+        }
+    }
+    private async Task sendUserList()
+    {
+        if(hubConnection is not null)
+        {
+            if(LoggedInUserList is not null &&getUserfromCache is not null)
+            {
+               
+                await hubConnection.SendAsync("sendUserList",LoggedInUserList);
+            }
         }
     }
 
